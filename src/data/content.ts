@@ -343,7 +343,7 @@ export const research = [
     logo: "brand/usp.png",
     blurb:
       "“Open-Source LLMs vs. NMT Systems: Translating Spatial Language in EN–PT-br Subtitles.” Corpus-based study with BLEU, METEOR, BERTScore, COMET, TER and manual error analysis.",
-    href: "https://www.teses.usp.br/teses/disponiveis/8/8139/tde-10122024-105745/pt-br.php",
+    href: "https://teses.usp.br/teses/disponiveis/8/8139/tde-10122024-105745/en.html",
     cta: "Read the thesis",
   },
   {
