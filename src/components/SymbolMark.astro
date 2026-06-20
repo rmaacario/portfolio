@@ -1,0 +1,43 @@
+---
+// A single Tupi/Pataxó grafismo (from the KAKUSU body-painting reference).
+// variant "diamond" = feminine "equilíbrio" · "zigzag" = masculine "força".
+// Monochrome — adopts current text color, works in light & dark.
+interface Props {
+  variant: "diamond" | "zigzag";
+  class?: string;
+}
+const { variant, class: cls = "" } = Astro.props;
+---
+
+<div class={`symbol ${cls}`} aria-hidden="true">
+  {
+    variant === "diamond" ? (
+      <svg viewBox="0 0 60 184" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linejoin="miter">
+        <path d="M30 22 L18 5 M30 22 L42 5" />
+        <path d="M30 22 L54 92 L30 162 L6 92 Z" />
+        <path d="M30 52 L42 92 L30 132 L18 92 Z" />
+        <path d="M30 52 L30 132 M18 92 L42 92" stroke-width="2.4" />
+        <circle cx="30" cy="92" r="3" fill="currentColor" stroke="none" />
+        <path d="M30 162 L18 179 M30 162 L42 179" />
+      </svg>
+    ) : (
+      <svg viewBox="0 0 44 184" fill="none" stroke="currentColor" stroke-width="3.8" stroke-linecap="square" stroke-linejoin="miter">
+        <path d="M22 6 L8 30 L36 54 L8 78 L36 102 L8 126 L36 150 L22 178" />
+      </svg>
+    )
+  }
+</div>
+
+<style>
+  .symbol {
+    color: var(--text);
+    opacity: 0.5;
+    line-height: 0;
+    height: 100%;
+    display: flex;
+  }
+  .symbol svg {
+    height: 100%;
+    width: auto;
+  }
+</style>

@@ -1,0 +1,283 @@
+---
+import { projects, type LinkType } from "../data/content";
+import Icon from "./Icon.astro";
+import ProjectCover from "./ProjectCover.astro";
+import SymbolMark from "./SymbolMark.astro";
+const base = import.meta.env.BASE_URL;
+const resolve = (href: string) =>
+  href.startsWith("http") || href.startsWith("mailto") ? href : `${base}${href}`;
+
+const featured = projects.filter((p) => p.featured);
+const more = projects.filter((p) => !p.featured);
+
+const kindClass = (k: string) =>
+  k === "Production" ? "k-prod" : k === "Research" ? "k-research" : "k-oss";
+
+const linkIcon: Record<LinkType, string> = {
+  github: "github",
+  colab: "colab",
+  paper: "book",
+  site: "external",
+  demo: "play",
+};
+---
+
+<section class="section work" id="work">
+  <div class="work-symbol"><SymbolMark variant="zigzag" /></div>
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Selected work</h2>
+    </div>
+
+    <div class="cards">
+      {
+        featured.map((p, i) => (
+          <article class="card reveal" data-delay={`${i * 70}ms`}>
+            <ProjectCover cover={p.cover} />
+            <div class="card-pad">
+              <div class="card-top">
+                <span class={`kind ${kindClass(p.kind)}`}>{p.kind}</span>
+                <span class="year mono">{p.year}</span>
+              </div>
+              <h3 class="card-title">{p.title}</h3>
+              {p.metric && (
+                <p class="metric mono">
+                  <Icon name="spark" size={14} /> {p.metric}
+                </p>
+              )}
+              <p class="card-blurb">{p.blurb}</p>
+              <div class="card-tags">
+                {p.tags.map((t) => (
+                  <span class="tag">{t}</span>
+                ))}
+              </div>
+              <div class="card-links">
+                {p.links.map((l) => (
+                  <a
+                    class={`plink pl-${l.type}`}
+                    href={resolve(l.href)}
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <Icon name={linkIcon[l.type]} size={15} /> {l.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="more reveal">
+      <span class="more-label mono">More on GitHub</span>
+      <div class="more-list">
+        {
+          more.map((p) => (
+            <a class="more-item" href={p.links[0]?.href} target="_blank" rel="noopener">
+              <span class="more-title">{p.title}</span>
+              <span class="more-meta">
+                {p.tags.slice(0, 2).join(" · ")}
+                <Icon name="arrow" size={14} />
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .work {
+    position: relative;
+    overflow: hidden;
+  }
+  .work-symbol {
+    position: absolute;
+    top: 8%;
+    right: clamp(0.5rem, 1.5vw, 1.5rem);
+    height: clamp(110px, 13vw, 160px);
+    opacity: 0.38;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .work .container {
+    position: relative;
+    z-index: 1;
+  }
+  @media (max-width: 1100px) {
+    .work-symbol {
+      display: none;
+    }
+  }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.3rem;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.3s var(--ease), border-color 0.3s var(--ease),
+      box-shadow 0.3s var(--ease);
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow);
+  }
+  .card-pad {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.5rem;
+  }
+  .card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.9rem;
+  }
+  .kind {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+  }
+  .k-prod {
+    color: #0f6e56;
+    background: rgba(29, 158, 117, 0.14);
+  }
+  .k-research {
+    color: var(--accent-text);
+    background: var(--accent-soft);
+  }
+  .k-oss {
+    color: #854f0b;
+    background: rgba(186, 117, 23, 0.14);
+  }
+  :root[data-theme="dark"] .k-prod {
+    color: #5dcaa5;
+  }
+  :root[data-theme="dark"] .k-oss {
+    color: #efaf57;
+  }
+  .year {
+    color: var(--text-faint);
+    font-size: 0.8rem;
+  }
+  .card-title {
+    font-size: 1.4rem;
+    line-height: 1.15;
+  }
+  .metric {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--accent-text);
+    font-size: 0.82rem;
+    margin-top: 0.7rem;
+  }
+  .card-blurb {
+    color: var(--text-muted);
+    font-size: 0.97rem;
+    margin-top: 0.8rem;
+    line-height: 1.6;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1.1rem;
+  }
+  .card-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: auto;
+    padding-top: 1.3rem;
+  }
+  .plink {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-strong);
+    color: var(--text-muted);
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease),
+      background 0.2s var(--ease), transform 0.2s var(--ease);
+  }
+  .plink:hover {
+    transform: translateY(-2px);
+    color: var(--accent-text);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .pl-colab:hover {
+    color: #d97706;
+    border-color: #f59e0b;
+    background: rgba(245, 158, 11, 0.12);
+  }
+
+  .more {
+    margin-top: 2.8rem;
+  }
+  .more-label {
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .more-list {
+    margin-top: 0.9rem;
+    border-top: 1px solid var(--border);
+  }
+  .more-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 0.4rem;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .more-item:hover {
+    padding-left: 1rem;
+    color: var(--accent-text);
+  }
+  .more-title {
+    font-weight: 500;
+    font-size: 1.02rem;
+  }
+  .more-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text-faint);
+    text-align: right;
+  }
+
+  @media (max-width: 720px) {
+    .cards {
+      grid-template-columns: 1fr;
+    }
+    .more-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.3rem;
+    }
+  }
+</style>

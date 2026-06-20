@@ -1,0 +1,9 @@
+<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#6d5ef0" stroke-width="1.7">
+  <title>LangGraph</title>
+  <line x1="6" y1="6" x2="6" y2="18"/>
+  <line x1="6" y1="6" x2="18" y2="12"/>
+  <line x1="6" y1="18" x2="18" y2="12"/>
+  <circle cx="6" cy="6" r="2.6" fill="#6d5ef0" stroke="none"/>
+  <circle cx="6" cy="18" r="2.6" fill="#6d5ef0" stroke="none"/>
+  <circle cx="18" cy="12" r="2.6" fill="#6d5ef0" stroke="none"/>
+</svg>

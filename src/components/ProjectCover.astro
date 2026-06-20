@@ -1,0 +1,256 @@
+---
+import type { Cover } from "../data/content";
+interface Props {
+  cover: Cover;
+}
+const { cover } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+{
+  cover.type === "image" ? (
+    <div class="cover cover-img">
+      <img
+        src={`${base}${cover.src}`}
+        alt={cover.alt}
+        loading="lazy"
+        style={`object-position:${cover.pos ?? "top center"}`}
+      />
+    </div>
+  ) : cover.type === "logo" ? (
+    <div class="cover cover-logo">
+      <img src={`${base}${cover.src}`} alt={cover.alt} loading="lazy" />
+    </div>
+  ) : (
+    <div class={`cover cover-motif m-${cover.motif}`} aria-hidden="true">
+      <svg viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice">
+        {cover.motif === "corpus" && (
+          <g>
+            {[0, 1, 2, 3, 4].map((i) => (
+              <>
+                <rect class="ln a" x="40" y={36 + i * 28} width={[90, 70, 100, 60, 84][i]} height="9" rx="4" />
+                <rect class="ln b" x="270" y={36 + i * 28} width={[80, 96, 64, 90, 70][i]} height="9" rx="4" />
+                <line class="lnk" x1={40 + [90, 70, 100, 60, 84][i] + 6} y1={40 + i * 28} x2="264" y2={40 + i * 28} />
+              </>
+            ))}
+            <text class="lbl" x="40" y="24">pt-br</text>
+            <text class="lbl r" x="360" y="24">nheengatu</text>
+          </g>
+        )}
+        {cover.motif === "finetune" && (
+          <g>
+            {[60, 110, 160].map((x, c) =>
+              [50, 100, 150].map((y, r) => (
+                <circle class={`nd ${c === 1 && r === 1 ? "hi" : ""}`} cx={x} cy={y} r={c === 1 && r === 1 ? 8 : 6} />
+              ))
+            )}
+            {[50, 100, 150].map((y1) =>
+              [50, 100, 150].map((y2) => <line class="ed" x1="60" y1={y1} x2="110" y2={y2} />)
+            )}
+            {[50, 100, 150].map((y1) =>
+              [50, 100, 150].map((y2) => <line class="ed" x1="110" y1={y1} x2="160" y2={y2} />)
+            )}
+            <line class="ar" x1="200" y1="100" x2="250" y2="100" />
+            <rect class="chip" x="258" y="72" width="100" height="56" rx="8" />
+            <text class="chip-t" x="308" y="105">NLLB-200</text>
+          </g>
+        )}
+        {cover.motif === "mteval" && (
+          <g>
+            {[
+              ["BLEU", 70],
+              ["METEOR", 95],
+              ["BERTSc", 120],
+              ["COMET", 140],
+              ["TER", 60],
+            ].map(([t, h], i) => (
+              <>
+                <rect class={`bar ${i % 2 ? "alt" : ""}`} x={48 + i * 66} y={170 - (h as number)} width="40" height={h as number} rx="4" />
+                <text class="lbl" x={68 + i * 66} y="188" text-anchor="middle">{t}</text>
+              </>
+            ))}
+            <line class="axis" x1="36" y1="170" x2="372" y2="170" />
+          </g>
+        )}
+        {cover.motif === "rag" && (
+          <g>
+            <rect class="chip" x="22" y="78" width="74" height="44" rx="8" />
+            <text class="chip-t" x="59" y="104">query</text>
+            <line class="ar" x1="98" y1="100" x2="138" y2="100" />
+            <g class="docs">
+              <rect class="doc" x="142" y="58" width="44" height="32" rx="4" />
+              <rect class="doc" x="150" y="86" width="44" height="32" rx="4" />
+              <rect class="doc hi" x="158" y="114" width="44" height="32" rx="4" />
+            </g>
+            <line class="ar" x1="208" y1="100" x2="248" y2="100" />
+            <rect class="chip hi" x="252" y="74" width="56" height="52" rx="8" />
+            <text class="chip-t" x="280" y="104">LLM</text>
+            <line class="ar" x1="310" y1="100" x2="346" y2="100" />
+            <circle class="nd hi" cx="366" cy="100" r="9" />
+          </g>
+        )}
+        {cover.motif === "bert" && (
+          <g>
+            {[0, 1, 2].map((i) => (
+              <rect class={`blk ${i === 0 ? "hi" : ""}`} x="120" y={40 + i * 40} width="160" height="30" rx="6" />
+            ))}
+            {["[CLS]", "tok", "tok", "tok"].map((t, i) => (
+              <>
+                <rect class={`tok ${i === 0 ? "hi" : ""}`} x={120 + i * 44} y="162" width="34" height="22" rx="4" />
+                <text class="tok-t" x={137 + i * 44} y="178" text-anchor="middle">{t}</text>
+              </>
+            ))}
+            <text class="chip-t" x="200" y="30" text-anchor="middle">transformer</text>
+          </g>
+        )}
+        {cover.motif === "agents" && (
+          <g>
+            {Array.from({ length: 6 }).map((_, r) =>
+              Array.from({ length: 9 }).map((__, c) => (
+                <rect class="cell" x={40 + c * 36} y={20 + r * 28} width="30" height="22" rx="3" />
+              ))
+            )}
+            <rect class="cell path" x={40} y={20} width="30" height="22" rx="3" />
+            <rect class="cell path" x={76} y={20} width="30" height="22" rx="3" />
+            <rect class="cell path" x={76} y={48} width="30" height="22" rx="3" />
+            <rect class="cell path" x={112} y={48} width="30" height="22" rx="3" />
+            <rect class="cell path" x={148} y={48} width="30" height="22" rx="3" />
+            <rect class="cell path" x={148} y={76} width="30" height="22" rx="3" />
+            <rect class="cell path" x={184} y={76} width="30" height="22" rx="3" />
+            <circle class="nd hi" cx={199} cy={87} r="7" />
+          </g>
+        )}
+      </svg>
+    </div>
+  )
+}
+
+<style>
+  .cover {
+    aspect-ratio: 16 / 8.5;
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .cover-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.5s var(--ease);
+  }
+  :global(.card:hover) .cover-img img {
+    transform: scale(1.04);
+  }
+  .cover-logo {
+    background: #fff;
+    display: grid;
+    place-items: center;
+    padding: 1.5rem;
+  }
+  .cover-logo img {
+    max-height: 76px;
+    max-width: 62%;
+    object-fit: contain;
+  }
+  .cover-motif {
+    background: var(--accent-soft);
+  }
+  .cover-motif svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .ln {
+    fill: var(--text-faint);
+    opacity: 0.5;
+  }
+  .ln.b {
+    fill: var(--accent);
+    opacity: 0.55;
+  }
+  .lnk {
+    stroke: var(--accent);
+    stroke-width: 1;
+    opacity: 0.4;
+    stroke-dasharray: 3 3;
+  }
+  .lbl {
+    fill: var(--text-faint);
+    font-family: var(--font-mono);
+    font-size: 11px;
+  }
+  .lbl.r {
+    text-anchor: end;
+    fill: var(--accent-text);
+  }
+
+  .nd {
+    fill: var(--text-faint);
+    opacity: 0.6;
+  }
+  .nd.hi {
+    fill: var(--accent);
+    opacity: 1;
+  }
+  .ed {
+    stroke: var(--accent);
+    stroke-width: 0.6;
+    opacity: 0.22;
+  }
+  .ar {
+    stroke: var(--accent);
+    stroke-width: 1.6;
+    marker-end: none;
+    opacity: 0.6;
+  }
+  .chip,
+  .doc,
+  .blk,
+  .tok,
+  .cell {
+    fill: var(--surface);
+    stroke: var(--accent);
+    stroke-width: 1.2;
+    opacity: 0.85;
+  }
+  .chip.hi,
+  .doc.hi,
+  .blk.hi,
+  .tok.hi,
+  .cell.path {
+    fill: var(--accent-soft);
+    stroke: var(--accent);
+    opacity: 1;
+  }
+  .cell {
+    opacity: 0.35;
+    stroke-width: 0.8;
+  }
+  .cell.path {
+    opacity: 1;
+  }
+  .chip-t,
+  .tok-t {
+    fill: var(--accent-text);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-anchor: middle;
+    dominant-baseline: middle;
+  }
+  .tok-t {
+    font-size: 9px;
+  }
+  .axis {
+    stroke: var(--border-strong);
+    stroke-width: 1;
+  }
+  .bar {
+    fill: var(--accent);
+    opacity: 0.55;
+  }
+  .bar.alt {
+    fill: var(--text-faint);
+    opacity: 0.4;
+  }
+</style>

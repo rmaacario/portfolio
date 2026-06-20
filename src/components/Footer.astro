@@ -1,0 +1,42 @@
+---
+import { site } from "../data/content";
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <span class="mono">© {year} {site.name}</span>
+    <span class="footer-built mono">
+      Built with Astro · in-browser NLP via Transformers.js
+    </span>
+    <a href="#main" class="footer-top">Back to top ↑</a>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-block: 2rem;
+  }
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.82rem;
+    color: var(--text-faint);
+  }
+  .footer-top {
+    transition: color 0.2s var(--ease);
+  }
+  .footer-top:hover {
+    color: var(--accent-text);
+  }
+  @media (max-width: 620px) {
+    .footer-built {
+      order: 3;
+      flex-basis: 100%;
+    }
+  }
+</style>

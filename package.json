@@ -1,0 +1,31 @@
+{
+  "name": "rafael-portfolio",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Personal portfolio of Rafael Macário Fernandes — NLP Engineer & Computational Linguist",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "deploy": "astro build && gh-pages -d dist -t -b gh-pages -r https://github.com/rmaacario/portfolio.git"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.2.1",
+    "@astrojs/sitemap": "^3.2.1",
+    "@fontsource-variable/fraunces": "^5.1.1",
+    "@fontsource-variable/inter": "^5.1.1",
+    "@fontsource-variable/jetbrains-mono": "^5.1.1",
+    "@huggingface/transformers": "^3.3.3",
+    "astro": "^5.2.5",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "gh-pages": "^6.3.0",
+    "simple-icons": "^13.21.0"
+  }
+}

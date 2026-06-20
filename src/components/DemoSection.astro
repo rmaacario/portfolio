@@ -1,0 +1,68 @@
+---
+import SemanticSearch from "./SemanticSearch.tsx";
+import Icon from "./Icon.astro";
+---
+
+<section class="section demo" id="demo">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">A live taste of what I build</h2>
+    </div>
+
+    <div class="demo-card reveal" data-delay="80ms">
+      <div class="demo-intro">
+        <span class="demo-badge mono">
+          <Icon name="spark" size={14} /> interactive · runs in your browser
+        </span>
+        <p>
+          This is a miniature retrieval step from a <strong>RAG pipeline</strong>
+           — the same idea behind the chatbots I ship. A transformer embedding
+          model loads <em>in your browser</em>, turns your question into a vector,
+          and ranks my work by meaning rather than keywords. Nothing is sent to a
+          server.
+        </p>
+      </div>
+      <SemanticSearch client:visible />
+    </div>
+  </div>
+</section>
+
+<style>
+  .demo-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: clamp(1.4rem, 3.5vw, 2.4rem);
+    box-shadow: var(--shadow);
+  }
+  .demo-intro {
+    margin-bottom: 1.6rem;
+  }
+  .demo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent-text);
+    background: var(--accent-soft);
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+  .demo-intro p {
+    max-width: 60ch;
+    color: var(--text-muted);
+    font-size: 1.02rem;
+  }
+  .demo-intro strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+  .demo-intro em {
+    font-style: italic;
+    color: var(--accent-text);
+  }
+</style>

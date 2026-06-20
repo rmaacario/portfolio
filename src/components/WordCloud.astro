@@ -1,0 +1,151 @@
+---
+// Wide animated multilingual word cloud with flat, filled illustrations
+// inspired by Nheengatu vocabulary art.
+// cat: "ind" = Indigenous (clay) · "lang" = pt/es/en (faint) · "nlp" = NLP/RAG (teal)
+type Cat = "ind" | "lang" | "nlp";
+type Icon =
+  | "fish" | "fire" | "canoe" | "flower" | "snake" | "capybara"
+  | "capoeira" | "banana" | "maracuya" | "church" | "bowl" | "eye" | "mingau" | "purua";
+type W = { t: string; x: number; y: number; s: 1 | 2 | 3; cat: Cat; icon?: Icon; title?: string };
+
+// Staggered for an organic cloud shape (denser toward the centre, corners pulled in).
+const words: W[] = [
+  { t: "olá", x: 18, y: 12, s: 1, cat: "lang", title: "Portuguese: hello" },
+  { t: "hola", x: 35, y: 7, s: 1, cat: "lang", title: "Spanish: hello" },
+  { t: "corpus", x: 52, y: 11, s: 1, cat: "nlp" },
+  { t: "tokens", x: 69, y: 8, s: 1, cat: "nlp" },
+  { t: "RAG", x: 84, y: 15, s: 3, cat: "nlp" },
+
+  { t: "ñe'ẽ", x: 14, y: 26, s: 3, cat: "ind", title: "Guaraní: language" },
+  { t: "attention", x: 35, y: 22, s: 1, cat: "nlp" },
+  { t: "LLM", x: 52, y: 25, s: 2, cat: "nlp" },
+  { t: "kapiwara", x: 72, y: 22, s: 2, cat: "ind", icon: "capybara", title: "Nheengatu: capybara" },
+  { t: "puruã", x: 91, y: 30, s: 1, cat: "ind", icon: "purua", title: "Nheengatu: pregnant" },
+
+  { t: "pirá", x: 9, y: 41, s: 2, cat: "ind", icon: "fish", title: "Nheengatu: fish" },
+  { t: "maitei", x: 31, y: 37, s: 1, cat: "ind", title: "Guaraní: greetings" },
+  { t: "nheengatu", x: 53, y: 40, s: 3, cat: "ind", title: "Nheengatu — 'the good language'" },
+  { t: "embeddings", x: 83, y: 43, s: 1, cat: "nlp" },
+
+  { t: "coaracy", x: 14, y: 53, s: 1, cat: "ind", title: "Nheengatu: sun" },
+  { t: "fine-tuning", x: 33, y: 50, s: 1, cat: "nlp" },
+  { t: "kuya", x: 52, y: 54, s: 1, cat: "ind", icon: "bowl", title: "Nheengatu: bowl / gourd" },
+  { t: "retrieval", x: 71, y: 50, s: 1, cat: "nlp" },
+  { t: "tatá", x: 89, y: 56, s: 2, cat: "ind", icon: "fire", title: "Nheengatu: fire" },
+
+  { t: "lengua", x: 9, y: 66, s: 1, cat: "lang", title: "Spanish: language" },
+  { t: "putira", x: 29, y: 63, s: 2, cat: "ind", icon: "flower", title: "Nheengatu: flower" },
+  { t: "igara", x: 50, y: 67, s: 2, cat: "ind", icon: "canoe", title: "Nheengatu: canoe" },
+  { t: "sesá", x: 70, y: 64, s: 1, cat: "ind", icon: "eye", title: "Nheengatu: eye" },
+  { t: "buya", x: 88, y: 68, s: 1, cat: "ind", icon: "snake", title: "Nheengatu: snake" },
+
+  { t: "kukuera", x: 17, y: 78, s: 2, cat: "ind", icon: "capoeira", title: "Nheengatu: capoeira play" },
+  { t: "porã", x: 37, y: 75, s: 1, cat: "ind", title: "Guaraní: good" },
+  { t: "mingau", x: 54, y: 79, s: 1, cat: "ind", icon: "mingau", title: "Nheengatu: porridge" },
+  { t: "tradução", x: 76, y: 76, s: 1, cat: "lang", title: "Portuguese: translation" },
+
+  { t: "aguyje", x: 26, y: 90, s: 1, cat: "ind", title: "Guaraní: thank you" },
+  { t: "pakuá", x: 44, y: 91, s: 2, cat: "ind", icon: "banana", title: "Nheengatu: banana" },
+  { t: "tupá uku", x: 63, y: 90, s: 1, cat: "ind", icon: "church", title: "Nheengatu: church" },
+  { t: "maracuyá", x: 84, y: 84, s: 1, cat: "ind", icon: "maracuya", title: "Nheengatu: passion fruit" },
+];
+
+// Flat filled illustrations, warm Amazonian palette. viewBox 0 0 48 40.
+const icons: Record<Icon, string> = {
+  fish: '<path d="M29 20 L46 10 L44 20 L46 30 Z" fill="#d6543a"/><ellipse cx="20" cy="20" rx="15" ry="9.5" fill="#e0633f"/><path d="M15 12.5q3.5 7.5 0 15" stroke="#b23b22" stroke-width="2.2" fill="none" stroke-linecap="round"/><path d="M21 11.5q3.5 8.5 0 17" stroke="#b23b22" stroke-width="2.2" fill="none" stroke-linecap="round"/><circle cx="11" cy="18" r="2.4" fill="#fff"/><circle cx="10.5" cy="18" r="1.2" fill="#2b2622"/>',
+  fire: '<path d="M24 3 C31 12 34 16 34 23 A10 10 0 0 1 14 23 C14 18 17 15 19 12 C19 15 21 16 22 18 C23 14 23 8 24 3 Z" fill="#d6543a"/><path d="M24 15 C27 18 28.5 20 28.5 23 A4.5 4.5 0 0 1 19.5 23 C19.5 20 21.5 18.5 24 15 Z" fill="#f0b03e"/>',
+  canoe: '<path d="M4 16 Q24 35 44 16 Q40 25 24 29 Q8 25 4 16 Z" fill="#6f9b6e"/><path d="M15 19 V25M24 20 V27M33 19 V25" stroke="#f3ead8" stroke-width="2.6" stroke-linecap="round"/>',
+  flower: '<path d="M24 20 V37" stroke="#6f9b6e" stroke-width="2.6" stroke-linecap="round"/><path d="M24 30 Q31 29 34 23 Q27 23 24 30 Z" fill="#6f9b6e"/><g fill="#e0a32e"><ellipse cx="24" cy="8" rx="3.4" ry="5.2"/><ellipse cx="31" cy="12" rx="5.2" ry="3.4"/><ellipse cx="28" cy="20" rx="4.3" ry="4.4"/><ellipse cx="20" cy="20" rx="4.3" ry="4.4"/><ellipse cx="17" cy="12" rx="5.2" ry="3.4"/></g><circle cx="24" cy="14" r="3.8" fill="#b23b22"/>',
+  capybara: '<ellipse cx="22" cy="23" rx="15" ry="8.5" fill="#a9663a"/><ellipse cx="37" cy="18" rx="7.5" ry="6.5" fill="#a9663a"/><ellipse cx="43.5" cy="19" rx="2.6" ry="2.1" fill="#7d4a29"/><circle cx="34" cy="11.5" r="2.1" fill="#7d4a29"/><circle cx="39" cy="16" r="1.1" fill="#2b2622"/><rect x="14" y="29" width="3" height="6.5" rx="1.3" fill="#8a5230"/><rect x="22" y="29" width="3" height="6.5" rx="1.3" fill="#8a5230"/><rect x="30" y="28" width="3" height="6.5" rx="1.3" fill="#8a5230"/>',
+  snake: '<path d="M5 24 Q12 11 19 22 T33 22 Q39 22 43 17" stroke="#e08aa0" stroke-width="6.5" fill="none" stroke-linecap="round"/><path d="M5 24 Q12 11 19 22 T33 22 Q39 22 43 17" stroke="#9c3f57" stroke-width="6.5" fill="none" stroke-dasharray="2 8"/><circle cx="44" cy="16" r="1.2" fill="#2b2622"/>',
+  capoeira: '<circle cx="13" cy="10" r="4" fill="#a9663a"/><path d="M13 14 L25 23" stroke="#a9663a" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M25 23 L17 34" stroke="#eae3d3" stroke-width="5.5" fill="none" stroke-linecap="round"/><path d="M25 23 L41 16" stroke="#eae3d3" stroke-width="5.5" fill="none" stroke-linecap="round"/><path d="M14 16 L5 23" stroke="#a9663a" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M16 18 L25 12" stroke="#a9663a" stroke-width="4" fill="none" stroke-linecap="round"/>',
+  banana: '<path d="M21 8 h7 l-1 -3 h-5 z" fill="#6f5a2a"/><g stroke="#b98a1e" stroke-width="1"><path d="M23 9 C13 12 12 24 19 31 C17 23 19 15 25 11 Z" fill="#e6b62f"/><path d="M25 9 C17 13 18 25 25 31 C24 23 26 16 28 11 Z" fill="#edc341"/><path d="M27 9 C23 13 26 25 32 30 C29 22 30 15 30 11 Z" fill="#e6b62f"/></g>',
+  maracuya: '<circle cx="18" cy="23" r="10.5" fill="#e0902f"/><path d="M18 12.5 Q23 7 29 8 Q26 13 19.5 13 Z" fill="#6f9b6e"/><circle cx="35" cy="27" r="9" fill="#e0902f"/><circle cx="35" cy="27" r="6.2" fill="#f5ecd8"/><g fill="#3b2f1a"><circle cx="33" cy="25" r="1"/><circle cx="37" cy="25" r="1"/><circle cx="35" cy="28" r="1"/><circle cx="32.5" cy="28.5" r="1"/><circle cx="37.5" cy="28.5" r="1"/></g>',
+  church: '<rect x="15" y="17" width="18" height="19" fill="#e98da0"/><path d="M13 17 L24 7 L35 17 Z" fill="#b65a3a"/><rect x="22.7" y="2" width="2.6" height="6.5" fill="#7d4a29"/><rect x="21" y="3.5" width="6" height="2.3" fill="#7d4a29"/><path d="M21 36 V27 a3 3 0 0 1 6 0 V36 Z" fill="#7d4a29"/>',
+  bowl: '<path d="M9 19 H39 A15 15 0 0 1 9 19 Z" fill="#c2683f"/><ellipse cx="24" cy="19" rx="15" ry="2.8" fill="#a9542f"/>',
+  eye: '<path d="M5 20 Q24 8 43 20 Q24 32 5 20 Z" fill="#f3ead8" stroke="#2b2622" stroke-width="2"/><circle cx="24" cy="20" r="5" fill="#2b2622"/><path d="M24 8 V4 M14 11 L12 7 M34 11 L36 7" stroke="#2b2622" stroke-width="2" stroke-linecap="round"/>',
+  mingau: '<ellipse cx="24" cy="26" rx="16" ry="6" fill="#7e9b54"/><ellipse cx="24" cy="23" rx="12.5" ry="4.6" fill="#f1e8d2"/><path d="M19 13 q2.5 -3 0 -6 M24 13 q2.5 -3 0 -6 M29 13 q2.5 -3 0 -6" stroke="#c7bda1" stroke-width="1.6" fill="none" stroke-linecap="round"/>',
+  purua: '<circle cx="17" cy="9" r="3.8" fill="#cf8a6e"/><path d="M17 13 L17 25" stroke="#cf8a6e" stroke-width="4" stroke-linecap="round"/><circle cx="24" cy="21" r="6.6" fill="#cf8a6e"/><path d="M24 16 a6.6 6.6 0 0 1 0 10" stroke="#7e9b54" stroke-width="2.4" fill="none"/><path d="M17 25 L14 36 M17 25 L20 36" stroke="#cf8a6e" stroke-width="3.6" stroke-linecap="round"/><path d="M17 16 q5 1 7 4" stroke="#cf8a6e" stroke-width="3" fill="none" stroke-linecap="round"/>',
+};
+const dur = (i: number) => (7 + ((i * 1.7) % 5)).toFixed(1);
+const delay = (i: number) => (-(i * 0.9) % 6).toFixed(1);
+const drift = (i: number) => (i % 2 === 0 ? 1 : -1);
+---
+
+<div class="wc" aria-hidden="true">
+  {
+    words.map((w, i) => (
+      <span class={`wc-word s${w.s} c-${w.cat}`} style={`left:${w.x}%; top:${w.y}%;`} title={w.title}>
+        <span class="wc-inner" style={`--dur:${dur(i)}s; --delay:${delay(i)}s; --dir:${drift(i)};`}>
+          {w.icon && <svg class="wc-icon" viewBox="0 0 48 40" set:html={icons[w.icon]} />}
+          <span class="wc-text">{w.t}</span>
+        </span>
+      </span>
+    ))
+  }
+</div>
+
+<style>
+  .wc {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  .wc-word {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+  }
+  .wc-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    animation: wc-float var(--dur) ease-in-out infinite;
+    animation-delay: var(--delay);
+  }
+  .wc-icon {
+    width: 48px;
+    height: 40px;
+  }
+  .s1 {
+    font-size: clamp(0.78rem, 1.5vw, 1rem);
+    opacity: 0.82;
+  }
+  .s1 .wc-icon {
+    width: 44px;
+    height: 37px;
+  }
+  .s2 {
+    font-size: clamp(1rem, 1.9vw, 1.35rem);
+    opacity: 0.95;
+  }
+  .s2 .wc-icon {
+    width: 56px;
+    height: 47px;
+  }
+  .s3 {
+    font-size: clamp(1.5rem, 3vw, 2.4rem);
+    font-family: var(--font-display);
+  }
+  .c-ind {
+    color: var(--clay);
+  }
+  .c-nlp {
+    color: var(--teal);
+    font-family: var(--font-mono);
+    letter-spacing: 0;
+  }
+  .c-lang {
+    color: var(--text-faint);
+  }
+  @keyframes wc-float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(calc(var(--dir) * 5px), -7px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wc-inner { animation: none; }
+  }
+</style>

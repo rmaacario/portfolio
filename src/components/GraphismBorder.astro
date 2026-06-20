@@ -1,0 +1,44 @@
+---
+// Bold geometric border inspired by Pataxó grafismos (KAKUSU body painting):
+// a chain of nested diamonds (the "equilíbrio" motif). Decorative, monochrome —
+// adopts the current text color so it works in light and dark mode.
+interface Props {
+  height?: number;
+  class?: string;
+}
+const { height = 40, class: cls = "" } = Astro.props;
+---
+
+<div class={`gborder ${cls}`} aria-hidden="true">
+  <svg width="100%" height={height} preserveAspectRatio="xMidYMid">
+    <defs>
+      <pattern id="patax" width="64" height={height} patternUnits="userSpaceOnUse">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linejoin="miter"
+        >
+          <path d={`M0 ${height / 2} L32 4 L64 ${height / 2} L32 ${height - 4} Z`} />
+          <path
+            d={`M14 ${height / 2} L32 ${height / 2 - 9} L50 ${height / 2} L32 ${height / 2 + 9} Z`}
+          />
+          <path d={`M32 ${height / 2 - 9} L32 ${height / 2 + 9}`} stroke-width="2" />
+          <path d={`M14 ${height / 2} L50 ${height / 2}`} stroke-width="2" />
+        </g>
+        <circle cx="32" cy={height / 2} r="2" fill="currentColor" />
+      </pattern>
+    </defs>
+    <rect width="100%" height={height} fill="url(#patax)" />
+  </svg>
+</div>
+
+<style>
+  .gborder {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    color: var(--text);
+    opacity: 0.9;
+  }
+</style>

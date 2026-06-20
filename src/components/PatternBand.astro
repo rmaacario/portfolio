@@ -1,0 +1,34 @@
+---
+// Original geometric motif (stepped diamonds / greca) evoking Amazonian graphic art.
+// Decorative only. Subtle clay tone, repeats full-width.
+interface Props {
+  class?: string;
+}
+const { class: cls = "" } = Astro.props;
+---
+
+<div class={`band ${cls}`} aria-hidden="true">
+  <svg width="100%" height="34" preserveAspectRatio="xMidYMid">
+    <defs>
+      <pattern id="kene" width="56" height="34" patternUnits="userSpaceOnUse">
+        <g fill="none" stroke="var(--clay)" stroke-width="1.4">
+          <path d="M28 4 L52 17 L28 30 L4 17 Z" />
+          <path d="M28 11 L41 17 L28 23 L15 17 Z" />
+          <path d="M0 17 H4 M52 17 H56" />
+        </g>
+        <circle cx="28" cy="17" r="1.6" fill="var(--clay)" />
+        <path d="M28 4 L28 0 M28 30 L28 34" stroke="var(--clay)" stroke-width="1.4" />
+      </pattern>
+    </defs>
+    <rect width="100%" height="34" fill="url(#kene)" />
+  </svg>
+</div>
+
+<style>
+  .band {
+    width: 100%;
+    overflow: hidden;
+    opacity: 0.5;
+    line-height: 0;
+  }
+</style>

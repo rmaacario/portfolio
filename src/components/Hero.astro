@@ -1,0 +1,196 @@
+---
+import { site, socials } from "../data/content";
+import Icon from "./Icon.astro";
+import WordCloud from "./WordCloud.astro";
+import SymbolMark from "./SymbolMark.astro";
+import Avatar from "./Avatar.astro";
+const base = import.meta.env.BASE_URL;
+const resumeHref = `${base}${site.resumeUrl.replace(/^\//, "")}`;
+---
+
+<section class="hero">
+  <div class="side-symbol side-left"><SymbolMark variant="diamond" /></div>
+  <div class="side-symbol side-right"><SymbolMark variant="zigzag" /></div>
+
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="hero-photo reveal"><Avatar size={112} radius="50%" /></div>
+      {
+        site.available && (
+          <span class="avail reveal" data-delay="20ms">
+            <span class="avail-dot" />
+            {site.availability}
+          </span>
+        )
+      }
+      <p class="eyebrow reveal" data-delay="40ms">{site.role}</p>
+      <h1 class="hero-name reveal" data-delay="80ms">{site.name}</h1>
+      <p class="hero-tagline reveal" data-delay="120ms">{site.tagline}</p>
+
+      <div class="hero-cta reveal" data-delay="180ms">
+        <a class="btn btn-primary" href="#work">View work <Icon name="arrow" size={17} /></a>
+        <a class="btn btn-ghost" href={resumeHref}>Résumé</a>
+        <a class="btn btn-ghost" href="#contact">Contact</a>
+      </div>
+
+      <div class="hero-socials reveal" data-delay="240ms">
+        {
+          socials.map((s) => (
+            <a
+              href={s.href}
+              target={s.href.startsWith("mailto") ? undefined : "_blank"}
+              rel="noopener"
+              aria-label={s.label}
+              title={s.label}
+            >
+              <Icon name={s.icon} size={19} />
+            </a>
+          ))
+        }
+      </div>
+
+      <p class="hero-meta reveal" data-delay="300ms">
+        <Icon name="pin" size={15} />
+        <span>{site.location}</span>
+        <span class="dot">·</span>
+        <span>{site.languages.map((l) => l.name).join(" / ")}</span>
+      </p>
+    </div>
+
+    <div class="hero-visual reveal" data-delay="160ms">
+      <WordCloud />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-block: clamp(1rem, 3vw, 2.5rem) clamp(2rem, 5vw, 3.5rem);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 0.92fr 1.08fr;
+    gap: clamp(1.5rem, 3vw, 2.5rem);
+    align-items: center;
+    max-width: 1120px;
+  }
+  .hero-photo {
+    margin-bottom: 1.1rem;
+  }
+  /* Deliberately understated — a quiet signal, not a "job-hunting" badge */
+  .avail {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.74rem;
+    color: var(--text-faint);
+    margin-bottom: 0.9rem;
+  }
+  .avail-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--teal);
+    opacity: 0.8;
+  }
+  .hero-name {
+    font-size: clamp(2.3rem, 4.8vw, 3.6rem);
+    margin: 0.7rem 0 0;
+    line-height: 1.05;
+  }
+  .hero-tagline {
+    font-size: clamp(1.05rem, 2vw, 1.35rem);
+    color: var(--text-muted);
+    max-width: 34ch;
+    margin-top: 1.4rem;
+    line-height: 1.55;
+  }
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+  .hero-socials {
+    display: flex;
+    gap: 0.4rem;
+    margin-top: 2rem;
+  }
+  .hero-socials a {
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: var(--radius-sm);
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease),
+      transform 0.2s var(--ease), background 0.2s var(--ease);
+  }
+  .hero-socials a:hover {
+    color: var(--accent-text);
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    transform: translateY(-3px);
+  }
+  .hero-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.8rem;
+    font-size: 0.9rem;
+    color: var(--text-faint);
+  }
+  .hero-meta .dot {
+    opacity: 0.5;
+  }
+
+  .hero-visual {
+    position: relative;
+    height: clamp(480px, 46vw, 580px);
+  }
+
+  /* Single grafismo symbols framing the hero at the margins */
+  .side-symbol {
+    position: absolute;
+    transform: translateY(-50%);
+    height: clamp(140px, 18vw, 210px);
+    z-index: 0;
+    pointer-events: none;
+  }
+  .side-left {
+    top: 30%;
+    left: clamp(1rem, 4.5vw, 4rem);
+  }
+  .side-right {
+    top: 72%;
+    right: clamp(0.5rem, 2.5vw, 2.5rem);
+  }
+
+  /* Tablet / small laptop: stack, cloud full-width below the copy */
+  @media (max-width: 980px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    .hero-visual {
+      width: 100%;
+      height: clamp(360px, 60vw, 460px);
+    }
+    .side-symbol {
+      display: none;
+    }
+  }
+
+  /* Phones: the dense cloud can't read here — hide it, keep a clean copy hero */
+  @media (max-width: 600px) {
+    .hero-visual {
+      display: none;
+    }
+    .hero-name {
+      font-size: clamp(2.4rem, 11vw, 3.2rem);
+    }
+  }
+</style>
