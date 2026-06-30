@@ -184,12 +184,12 @@ export const projects: Project[] = [
     ],
   },
   {
-    title: "AI agents — search & reinforcement learning",
+    title: "PyStrips — classical PDDL/STRIPS planner",
     kind: "Open source",
     year: "2023",
     blurb:
-      "Classic search algorithms and reinforcement-learning techniques implemented from UC Berkeley's AI curriculum — Pacman agents, pathfinding, and value iteration.",
-    tags: ["Python", "Search", "Reinforcement learning"],
+      "A heuristic forward-search planner for PDDL/STRIPS based on the HSP framework: parses a domain and problem, grounds the actions, and solves with progression search using h_add, h_max, or FastForward (h_ff) heuristics.",
+    tags: ["Python", "PDDL/STRIPS", "Heuristic search", "Planning"],
     cover: { type: "motif", motif: "agents" },
     links: [
       { label: "GitHub", href: "https://github.com/rmaacario/AI-agents", type: "github" },

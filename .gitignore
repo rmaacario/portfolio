@@ -24,3 +24,10 @@ yarn-error.log*
 .vscode/*
 !.vscode/extensions.json
 .idea/
+
+# wrangler local secrets
+.dev.vars
+worker/.dev.vars
+
+# wrangler build/cache artifacts
+worker/.wrangler/

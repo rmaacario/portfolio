@@ -61,10 +61,10 @@ export const corpus: Doc[] = [
   },
   {
     id: "ai-agents",
-    title: "AI agents: search and reinforcement learning",
+    title: "PyStrips — classical PDDL/STRIPS planner",
     tag: "Open source",
     href: "https://github.com/rmaacario/AI-agents",
-    text: "Implemented classic search algorithms and reinforcement-learning techniques such as pathfinding and value iteration from the UC Berkeley artificial intelligence curriculum.",
+    text: "A heuristic forward-search planner for PDDL/STRIPS based on the HSP framework: it parses a domain and problem, grounds the actions, and solves with progression search using h_add, h_max, or FastForward (h_ff) heuristics.",
   },
   {
     id: "phd",

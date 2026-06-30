@@ -1,0 +1,73 @@
+---
+// Friendly chatbot mascot — robot head with headphones, antenna and a
+// speech-bubble tail, in the Amazonian palette (urucum/terracotta body,
+// forest-green headphones) with a Pataxó grafismo diamond row on the brow.
+---
+
+<svg
+  class="mascot"
+  viewBox="0 0 200 210"
+  role="img"
+  aria-label="Rafael's chatbot assistant"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <defs>
+    <linearGradient id="mascotBody" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e0875a" />
+      <stop offset="1" stop-color="#a8481f" />
+    </linearGradient>
+    <linearGradient id="mascotPhones" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#7cc6a0" />
+      <stop offset="1" stop-color="#2f7d52" />
+    </linearGradient>
+  </defs>
+
+  <!-- headphone band -->
+  <path d="M40 114 V92 a60 60 0 0 1 120 0 V114" fill="none" stroke="url(#mascotPhones)" stroke-width="11" stroke-linecap="round" />
+
+  <!-- antenna -->
+  <line x1="100" y1="58" x2="100" y2="34" stroke="#2f7d52" stroke-width="5" stroke-linecap="round" />
+  <circle cx="100" cy="27" r="9" fill="url(#mascotPhones)" />
+
+  <!-- ear cups -->
+  <rect x="26" y="98" width="26" height="48" rx="13" fill="url(#mascotPhones)" />
+  <rect x="148" y="98" width="26" height="48" rx="13" fill="url(#mascotPhones)" />
+
+  <!-- speech-bubble tail (drawn behind the head) -->
+  <path d="M72 156 L72 186 L98 160 Z" fill="url(#mascotBody)" />
+
+  <!-- head -->
+  <rect x="48" y="60" width="104" height="104" rx="26" fill="url(#mascotBody)" />
+
+  <!-- grafismo diamond row on the brow -->
+  <polygon points="83,79 88,74 93,79 88,84" fill="#fbf3ea" />
+  <polygon points="95,79 100,74 105,79 100,84" fill="#7cc6a0" />
+  <polygon points="107,79 112,74 117,79 112,84" fill="#fbf3ea" />
+
+  <!-- face screen -->
+  <rect x="64" y="92" width="72" height="46" rx="14" fill="#ffffff" fill-opacity="0.13" stroke="#fbf3ea" stroke-width="3.5" />
+
+  <!-- eyes -->
+  <circle cx="86" cy="115" r="6.5" fill="#fbf3ea" />
+  <circle cx="114" cy="115" r="6.5" fill="#fbf3ea" />
+
+  <!-- smile -->
+  <path d="M85 147 Q100 160 115 147" fill="none" stroke="#fbf3ea" stroke-width="5" stroke-linecap="round" />
+</svg>
+
+<style>
+  .mascot {
+    width: clamp(150px, 16vw, 200px);
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 6px 14px rgba(168, 72, 31, 0.22));
+    animation: mascot-bob 5.5s ease-in-out infinite;
+  }
+  @keyframes mascot-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mascot { animation: none; }
+  }
+</style>

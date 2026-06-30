@@ -184,10 +184,10 @@ const resumeHref = `${base}${site.resumeUrl.replace(/^\//, "")}`;
     }
   }
 
-  /* Phones: the dense cloud can't read here — hide it, keep a clean copy hero */
+  /* Phones: keep a trimmed cloud (subset of words) below the copy, shorter. */
   @media (max-width: 600px) {
     .hero-visual {
-      display: none;
+      height: 360px;
     }
     .hero-name {
       font-size: clamp(2.4rem, 11vw, 3.2rem);

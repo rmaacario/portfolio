@@ -6,48 +6,49 @@ type Cat = "ind" | "lang" | "nlp";
 type Icon =
   | "fish" | "fire" | "canoe" | "flower" | "snake" | "capybara"
   | "capoeira" | "banana" | "maracuya" | "church" | "bowl" | "eye" | "mingau" | "purua";
-type W = { t: string; x: number; y: number; s: 1 | 2 | 3; cat: Cat; icon?: Icon; title?: string };
+// `m` flags the spread-out subset kept on small phones (the full cloud is too dense there).
+type W = { t: string; x: number; y: number; s: 1 | 2 | 3; cat: Cat; icon?: Icon; title?: string; m?: boolean };
 
 // Staggered for an organic cloud shape (denser toward the centre, corners pulled in).
 const words: W[] = [
-  { t: "olá", x: 18, y: 12, s: 1, cat: "lang", title: "Portuguese: hello" },
+  { t: "olá", x: 18, y: 12, s: 1, cat: "lang", title: "Portuguese: hello", m: true },
   { t: "hola", x: 35, y: 7, s: 1, cat: "lang", title: "Spanish: hello" },
-  { t: "corpus", x: 52, y: 11, s: 1, cat: "nlp" },
+  { t: "corpus", x: 52, y: 11, s: 1, cat: "nlp", m: true },
   { t: "tokens", x: 69, y: 8, s: 1, cat: "nlp" },
-  { t: "RAG", x: 84, y: 15, s: 3, cat: "nlp" },
+  { t: "RAG", x: 84, y: 15, s: 3, cat: "nlp", m: true },
 
-  { t: "ñe'ẽ", x: 14, y: 26, s: 3, cat: "ind", title: "Guaraní: language" },
-  { t: "attention", x: 35, y: 22, s: 1, cat: "nlp" },
-  { t: "LLM", x: 52, y: 25, s: 2, cat: "nlp" },
-  { t: "kapiwara", x: 72, y: 22, s: 2, cat: "ind", icon: "capybara", title: "Nheengatu: capybara" },
+  { t: "ñe'ẽ", x: 14, y: 26, s: 3, cat: "ind", title: "Guaraní: language", m: true },
+  { t: "attention", x: 35, y: 22, s: 1, cat: "nlp", m: true },
+  { t: "LLM", x: 52, y: 25, s: 2, cat: "nlp", m: true },
+  { t: "kapiwara", x: 72, y: 22, s: 2, cat: "ind", icon: "capybara", title: "Nheengatu: capybara", m: true },
   { t: "puruã", x: 91, y: 30, s: 1, cat: "ind", icon: "purua", title: "Nheengatu: pregnant" },
 
-  { t: "pirá", x: 9, y: 41, s: 2, cat: "ind", icon: "fish", title: "Nheengatu: fish" },
-  { t: "maitei", x: 31, y: 37, s: 1, cat: "ind", title: "Guaraní: greetings" },
-  { t: "nheengatu", x: 53, y: 40, s: 3, cat: "ind", title: "Nheengatu — 'the good language'" },
-  { t: "embeddings", x: 83, y: 43, s: 1, cat: "nlp" },
+  { t: "pirá", x: 9, y: 41, s: 2, cat: "ind", icon: "fish", title: "Nheengatu: fish", m: true },
+  { t: "maitei", x: 31, y: 37, s: 1, cat: "ind", title: "Guaraní: greetings", m: true },
+  { t: "nheengatu", x: 53, y: 40, s: 3, cat: "ind", title: "Nheengatu — 'the good language'", m: true },
+  { t: "embeddings", x: 83, y: 43, s: 1, cat: "nlp", m: true },
 
-  { t: "coaracy", x: 14, y: 53, s: 1, cat: "ind", title: "Nheengatu: sun" },
-  { t: "fine-tuning", x: 33, y: 50, s: 1, cat: "nlp" },
-  { t: "kuya", x: 52, y: 54, s: 1, cat: "ind", icon: "bowl", title: "Nheengatu: bowl / gourd" },
-  { t: "retrieval", x: 71, y: 50, s: 1, cat: "nlp" },
-  { t: "tatá", x: 89, y: 56, s: 2, cat: "ind", icon: "fire", title: "Nheengatu: fire" },
+  { t: "coaracy", x: 14, y: 53, s: 1, cat: "ind", title: "Nheengatu: sun", m: true },
+  { t: "fine-tuning", x: 33, y: 50, s: 1, cat: "nlp", m: true },
+  { t: "kuya", x: 52, y: 54, s: 1, cat: "ind", icon: "bowl", title: "Nheengatu: bowl / gourd", m: true },
+  { t: "retrieval", x: 71, y: 50, s: 1, cat: "nlp", m: true },
+  { t: "tatá", x: 89, y: 56, s: 2, cat: "ind", icon: "fire", title: "Nheengatu: fire", m: true },
 
-  { t: "lengua", x: 9, y: 66, s: 1, cat: "lang", title: "Spanish: language" },
-  { t: "putira", x: 29, y: 63, s: 2, cat: "ind", icon: "flower", title: "Nheengatu: flower" },
-  { t: "igara", x: 50, y: 67, s: 2, cat: "ind", icon: "canoe", title: "Nheengatu: canoe" },
-  { t: "sesá", x: 70, y: 64, s: 1, cat: "ind", icon: "eye", title: "Nheengatu: eye" },
-  { t: "buya", x: 88, y: 68, s: 1, cat: "ind", icon: "snake", title: "Nheengatu: snake" },
+  { t: "lengua", x: 9, y: 66, s: 1, cat: "lang", title: "Spanish: language", m: true },
+  { t: "putira", x: 29, y: 63, s: 2, cat: "ind", icon: "flower", title: "Nheengatu: flower", m: true },
+  { t: "igara", x: 50, y: 67, s: 2, cat: "ind", icon: "canoe", title: "Nheengatu: canoe", m: true },
+  { t: "sesá", x: 70, y: 64, s: 1, cat: "ind", icon: "eye", title: "Nheengatu: eye", m: true },
+  { t: "buya", x: 88, y: 68, s: 1, cat: "ind", icon: "snake", title: "Nheengatu: snake", m: true },
 
-  { t: "kukuera", x: 17, y: 78, s: 2, cat: "ind", icon: "capoeira", title: "Nheengatu: capoeira play" },
-  { t: "porã", x: 37, y: 75, s: 1, cat: "ind", title: "Guaraní: good" },
-  { t: "mingau", x: 54, y: 79, s: 1, cat: "ind", icon: "mingau", title: "Nheengatu: porridge" },
-  { t: "tradução", x: 76, y: 76, s: 1, cat: "lang", title: "Portuguese: translation" },
+  { t: "kukuera", x: 17, y: 78, s: 2, cat: "ind", icon: "capoeira", title: "Nheengatu: capoeira play", m: true },
+  { t: "porã", x: 37, y: 75, s: 1, cat: "ind", title: "Guaraní: good", m: true },
+  { t: "mingau", x: 54, y: 79, s: 1, cat: "ind", icon: "mingau", title: "Nheengatu: porridge", m: true },
+  { t: "tradução", x: 76, y: 76, s: 1, cat: "lang", title: "Portuguese: translation", m: true },
 
-  { t: "aguyje", x: 26, y: 90, s: 1, cat: "ind", title: "Guaraní: thank you" },
-  { t: "pakuá", x: 44, y: 91, s: 2, cat: "ind", icon: "banana", title: "Nheengatu: banana" },
-  { t: "tupá uku", x: 63, y: 90, s: 1, cat: "ind", icon: "church", title: "Nheengatu: church" },
-  { t: "maracuyá", x: 84, y: 84, s: 1, cat: "ind", icon: "maracuya", title: "Nheengatu: passion fruit" },
+  { t: "aguyje", x: 26, y: 90, s: 1, cat: "ind", title: "Guaraní: thank you", m: true },
+  { t: "pakuá", x: 44, y: 91, s: 2, cat: "ind", icon: "banana", title: "Nheengatu: banana", m: true },
+  { t: "tupá uku", x: 63, y: 90, s: 1, cat: "ind", icon: "church", title: "Nheengatu: church", m: true },
+  { t: "maracuyá", x: 84, y: 84, s: 1, cat: "ind", icon: "maracuya", title: "Nheengatu: passion fruit", m: true },
 ];
 
 // Flat filled illustrations, warm Amazonian palette. viewBox 0 0 48 40.
@@ -75,7 +76,7 @@ const drift = (i: number) => (i % 2 === 0 ? 1 : -1);
 <div class="wc" aria-hidden="true">
   {
     words.map((w, i) => (
-      <span class={`wc-word s${w.s} c-${w.cat}`} style={`left:${w.x}%; top:${w.y}%;`} title={w.title}>
+      <span class={`wc-word s${w.s} c-${w.cat}${w.m ? " wc-m" : ""}`} style={`left:${w.x}%; top:${w.y}%;`} title={w.title}>
         <span class="wc-inner" style={`--dur:${dur(i)}s; --delay:${delay(i)}s; --dir:${drift(i)};`}>
           {w.icon && <svg class="wc-icon" viewBox="0 0 48 40" set:html={icons[w.icon]} />}
           <span class="wc-text">{w.t}</span>
@@ -147,5 +148,12 @@ const drift = (i: number) => (i % 2 === 0 ? 1 : -1);
   }
   @media (prefers-reduced-motion: reduce) {
     .wc-inner { animation: none; }
+  }
+  /* Phones: thin the cloud to the spread-out subset so it stays legible. */
+  @media (max-width: 600px) {
+    .wc-word:not(.wc-m) { display: none; }
+    .wc-word.s1 { font-size: 0.92rem; }
+    .wc-word.s2 { font-size: 1.2rem; }
+    .wc-word.s3 { font-size: 1.9rem; }
   }
 </style>
