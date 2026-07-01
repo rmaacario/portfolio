@@ -17,6 +17,12 @@ const base = import.meta.env.BASE_URL;
         style={`object-position:${cover.pos ?? "top center"}`}
       />
     </div>
+  ) : cover.type === "collage" ? (
+    <div class="cover cover-collage">
+      {cover.srcs.map((s) => (
+        <img src={`${base}${s}`} alt={cover.alt} loading="lazy" />
+      ))}
+    </div>
   ) : cover.type === "logo" ? (
     <div class="cover cover-logo">
       <img src={`${base}${cover.src}`} alt={cover.alt} loading="lazy" />
@@ -140,6 +146,22 @@ const base = import.meta.env.BASE_URL;
     transition: transform 0.5s var(--ease);
   }
   :global(.card:hover) .cover-img img {
+    transform: scale(1.04);
+  }
+  .cover-collage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--border);
+  }
+  .cover-collage img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    transition: transform 0.5s var(--ease);
+  }
+  :global(.card:hover) .cover-collage img {
     transform: scale(1.04);
   }
   .cover-logo {

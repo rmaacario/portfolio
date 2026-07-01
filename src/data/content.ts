@@ -12,7 +12,7 @@ export const site = {
     "I build and evaluate LLM, RAG, and machine-translation systems — with the same rigor for low-resource and Indigenous languages.",
   // Longer paragraph for the about / intro block.
   intro:
-    "NLP Engineer and PhD candidate in Computational Linguistics at the University of São Paulo. I design and evaluate production-grade chatbots, retrieval-augmented generation pipelines, and machine-translation systems — measuring faithfulness, hallucination, and translation quality while bridging linguistic theory and scalable engineering. My research focuses on cross-lingual transfer and language-contact effects between Brazilian Portuguese and low-resource Indigenous languages such as Nheengatu.",
+    "NLP Engineer and PhD candidate in Computational Linguistics at the University of São Paulo. I build and evaluate production-grade chatbots, RAG pipelines, and machine-translation systems — measuring faithfulness, hallucination, and translation quality. My research focuses on cross-lingual transfer between Brazilian Portuguese and low-resource Indigenous languages such as Nheengatu.",
   location: "São Paulo, Brazil",
   email: "rafael.macario@usp.br",
   resumeUrl: "/resume-rafael-fernandes.pdf",
@@ -57,6 +57,7 @@ export type ProjectLink = { label: string; href: string; type: LinkType };
 // A card visual: either a real image, or a generated motif drawn in SVG.
 export type Cover =
   | { type: "image"; src: string; alt: string; pos?: string }
+  | { type: "collage"; srcs: string[]; alt: string }
   | { type: "logo"; src: string; alt: string }
   | { type: "motif"; motif: "corpus" | "finetune" | "mteval" | "rag" | "bert" | "agents" };
 
@@ -128,20 +129,20 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    title: "WiLine product documentation — platforms, sites & chatbot",
+    title: "Production RAG chatbots for WiLine's products",
     kind: "Production",
     year: "2025",
     blurb:
-      "End-to-end ownership of WiLine's product documentation across the company's products: writing the docs, building and styling the sites themselves (Docusaurus + React/CSS), and building the in-product assistant — production RAG with custom retrievers on LangChain + FAISS, plus automated multilingual documentation workflows (webhooks + DeepL + LLMs).",
-    tags: ["Docusaurus", "React", "LangChain", "FAISS", "RAG", "Technical writing"],
+      "Production retrieval-augmented chatbots I build end to end for WiLine — both the public in-product assistants on the product sites and the internal RAG bots that answer over the company's internal documentation. Custom retrievers connect a FAISS vector store to LLMs on LangChain for grounded, cited answers, shipped as live chat widgets.",
+    tags: ["RAG", "LangChain", "FAISS", "LLMs", "Vector search", "Chatbots"],
     cover: {
-      type: "image",
-      src: "covers/wiline-connect.png",
-      alt: "WiLine Connect documentation portal",
+      type: "collage",
+      srcs: ["covers/connect-bot.png", "covers/internal-bot-1.jpg"],
+      alt: "WiLine AI assistants — public product bot and internal-documentation bot",
     },
     links: [
-      { label: "Connect portal", href: "https://connect.wiline.com/", type: "site" },
-      { label: "SD-WAN portal", href: "https://sd-wan.wiline.com/", type: "site" },
+      { label: "Try it on Connect", href: "https://connect.wiline.com/", type: "site" },
+      { label: "Try it on SD-WAN", href: "https://sd-wan.wiline.com/", type: "site" },
     ],
     featured: true,
   },
@@ -364,6 +365,126 @@ export const research = [
   },
 ];
 
+// Technical writing — the WiLine Edge Cloud (WEC) docs site, hands-on AI
+// tutorials, and the AI News newsletter. Rafael owns this end to end: he builds
+// and styles the docs site itself, writes every guide, and ships the assistant.
+export type Article = {
+  title: string;
+  href: string;
+  blurb: string;
+  level?: "Beginner" | "Intermediate";
+  part?: string;
+  read?: string;
+  // True while a guide is still in the publishing pipeline — links to the hub
+  // instead of a dead deep link, and shows a "soon" marker.
+  upcoming?: boolean;
+  // Surfaced in the portfolio's concise "featured guides" list. The full set
+  // lives on the docs site, reached via the "see all" link.
+  featured?: boolean;
+};
+
+export type WritingSeries = {
+  name: string;
+  kind: "Tutorial series" | "Newsletter";
+  blurb: string;
+  articles: Article[];
+};
+
+export const writing = {
+  eyebrow: "WiLine Edge Cloud · WEC",
+  title: "Docs & tutorials",
+  // Lead statement — the top-to-bottom ownership message.
+  lead: "WiLine Edge Cloud's documentation, owned end to end — the Docusaurus site (React/CSS), every guide, and the in-product AI assistant. The tutorials below are run from scratch on a real box: the actual commands, versions, and the fixes for what breaks.",
+  hubUrl: "https://wec.wiline.com/docs",
+  tutorialsUrl: "https://wec.wiline.com/docs/tutorials/",
+  newsUrl: "https://wec.wiline.com/docs/news/",
+  // The documentation platforms Rafael builds and owns. Each renders as a
+  // browser-framed preview in the Writing section (visuals are hand-built in
+  // the component, keyed by id — no screenshots to go stale).
+  sites: [
+    {
+      id: "wec",
+      name: "WiLine Edge Cloud",
+      tagline: "The only AI-first Edge Cloud",
+      desc: "AI-first edge cloud — the docs, tutorials, and AI News all live here.",
+      href: "https://wec.wiline.com/docs",
+      host: "wec.wiline.com/docs",
+    },
+    {
+      id: "sdwan",
+      name: "WiLine SD-WAN",
+      tagline: "Deploy, manage, and scale your network",
+      desc: "Software-defined networking — guides, references, and release notes.",
+      href: "https://sd-wan.wiline.com",
+      host: "sd-wan.wiline.com",
+    },
+    {
+      id: "connect",
+      name: "WiLine Connect",
+      tagline: "How can we help?",
+      desc: "Voice, video, and messaging — setup guides and feature how-tos.",
+      href: "https://connect.wiline.com",
+      host: "connect.wiline.com",
+    },
+  ],
+  series: [
+    {
+      name: "AI tutorials",
+      kind: "Tutorial series",
+      blurb:
+        "Self-hosting AI, end to end — evaluation harnesses, agents with persistent memory, and the infra to run them. Every guide run from scratch on a real box, with the actual commands and the fixes for what breaks.",
+      articles: [
+        {
+          level: "Intermediate",
+          read: "14 min read",
+          title: "Evaluate your models with Promptfoo on the WEC Inference API",
+          blurb:
+            "A full evaluation harness — assertions, latency guardrails, JSON-schema checks, model-graded rubrics, and a CI gate.",
+          href: "https://wec.wiline.com/docs/tutorials/eval-models-promptfoo-wiline-inference/",
+        },
+        {
+          level: "Beginner",
+          read: "12 min read",
+          title: "Deploy OpenClaw on a WEC instance via Docker Compose",
+          blurb:
+            "Fresh instance to a self-hosted agent that actually answers — with every real error and fix from a live deploy.",
+          href: "https://wec.wiline.com/docs/tutorials/deploy-openclaw-docker-compose/",
+        },
+        {
+          level: "Intermediate",
+          read: "13 min read",
+          title: "Self-host the Hermes Agent with persistent memory",
+          blurb:
+            "Real install, model config, and SQLite-backed memory — with a test that proves it survives a full restart.",
+          href: "https://wec.wiline.com/docs/tutorials/self-host-hermes-agent/",
+        },
+      ],
+    },
+    {
+      name: "AI News",
+      kind: "Newsletter",
+      blurb:
+        "Short, high-signal reads on what's changing in AI infrastructure — new tools, releases, and shifts, with a plain take on what each means if you self-host.",
+      articles: [
+        {
+          read: "4 min read",
+          title: "GLM-5.2: the only open-weight model in the top 10 — and you can run it on WEC",
+          blurb:
+            "The lone open-weight, MIT-licensed model holding its own against the proprietary frontier — 1M-token context, top open-source coding scores.",
+          href: "https://wec.wiline.com/docs/news/glm-5-2-open-weight-top-10/",
+        },
+        {
+          read: "5 min read",
+          title: "Why LiteLLM is rewriting its gateway in Rust — and why AI developers should care",
+          blurb:
+            "AI gateways are becoming critical infrastructure — with real consequences for latency, cost, and reliability.",
+          href: "https://wec.wiline.com/docs/news/litellm-rust-gateway/",
+        },
+      ],
+    },
+  ] satisfies WritingSeries[],
+};
+
 // Optional feature banner (e.g. your ACL conference banner). Set `src` once the
 // image is in /public; leave src empty to hide the block.
 export const featureBanner = {
@@ -419,5 +540,6 @@ export const nav = [
   { label: "Demo", href: "#demo" },
   { label: "Experience", href: "#experience" },
   { label: "Research", href: "#research" },
+  { label: "Writing", href: "#writing" },
   { label: "Contact", href: "#contact" },
 ];
